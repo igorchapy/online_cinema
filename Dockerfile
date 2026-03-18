@@ -35,8 +35,7 @@ WORKDIR /usr/src/fastapi
 COPY ./src .
 
 # Copy commands
-COPY ./commands /commands
-
+COPY ./src/commands /commands
 # Ensure Unix-style line endings for scripts
 RUN dos2unix /commands/*.sh
 
