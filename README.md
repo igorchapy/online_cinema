@@ -1,127 +1,153 @@
-Online Cinema
+# 🎬 Online Cinema
 
-An online cinema platform built with FastAPI, allowing users to browse, purchase, and rate movies. Features include JWT-based authentication, role-based access, shopping cart, orders, payments integration, and Dockerized deployment.
+An **online cinema platform** built with **FastAPI**, allowing users to browse, purchase, and rate movies.
 
-Features
-1. Authorization & Authentication
+The system includes authentication, role-based access control, shopping cart, orders, Stripe payments, and full Dockerized deployment.
 
-User Registration:
+---
 
-Users register using email and receive an activation link valid for 24 hours.
+## 🚀 Features
 
-Can resend activation link if expired.
+### 🔐 online_cinema
 
-Email uniqueness enforced.
+- **User Registration**
+  - Email-based registration with activation link (valid for 24 hours)
+  - Ability to resend activation link
+  - Unique email enforcement
 
-Login & Logout:
+- **Login & Logout**
+  - JWT-based authentication (access + refresh tokens)
+  - Secure logout (refresh token invalidation)
 
-JWT access and refresh tokens issued upon login.
+- **Password Management**
+  - Change password (requires old password)
+  - Password reset via email token
+  - Password complexity validation
 
-Logout deletes the refresh token.
+- **Roles & Permissions**
+  - `USER` – Basic access
+  - `MODERATOR` – Manage movies, view sales
+  - `ADMIN` – Manage users, roles, and activations
 
-Password Management:
+---
 
-Change password (requires old password).
+### 🎥 Movies
 
-Reset forgotten password via email token.
+- Browse catalog with:
+  - Pagination
+  - Filtering
+  - Sorting
+- Movie details:
+  - Description, actors, director
+  - Ratings (1–10)
+  - Comments, likes/dislikes
+- Search by:
+  - Title
+  - Description
+  - Actor / Director
+- Favorites system:
+  - Save and manage favorite movies
 
-Password complexity validation enforced.
+**Moderator capabilities:**
+- CRUD operations for:
+  - Movies
+  - Genres
+  - Actors
+- Prevent deletion of purchased movies
 
-User Groups & Permissions:
+---
 
-USER – Basic access.
+### 🛒 Shopping Cart
 
-MODERATOR – Can manage movies, view sales.
+- Add/remove movies
+- Prevent:
+  - Duplicate items
+  - Already purchased movies
+- View cart with:
+  - Title
+  - Genre
+  - Price
+  - Release year
+- Clear cart manually
 
-ADMIN – Can manage users, groups, and activate accounts manually.
+**Moderator access:**
+- View users' carts for analytics
 
-2. Movies
+---
 
-Browse catalog with pagination, filtering, and sorting.
+### 📦 Orders
 
-View detailed movie info, like/dislike, comment, rate (1-10).
+- Create orders from cart
+- Automatically exclude:
+  - Unavailable movies
+  - Already purchased movies
+- Order history:
+  - Date
+  - Movies
+  - Total amount
+  - Status (`pending`, `paid`, `canceled`)
+- Cancel pending orders
+- Refund support after payment
+- Email confirmation on payment
 
-Search by title, description, actor, director.
+**Admin capabilities:**
+- Filter orders by:
+  - User
+  - Date
+  - Status
 
-Favorite movies and perform catalog functions on favorites.
+---
 
-Moderators can perform CRUD operations on movies, genres, and actors.
+### 💳 Payments
 
-Prevent deletion of movies purchased by users.
+- Integration with **Stripe**
+- Payment tracking:
+  - Date
+  - Amount
+  - Status (`successful`, `canceled`, `refunded`)
+- Stripe webhooks for validation
+- Detailed payment items for financial accuracy
 
-3. Shopping Cart
+**Admin capabilities:**
+- Filter payments by:
+  - User
+  - Date
+  - Status
 
-Users can add/remove movies in their cart.
+---
 
-Prevent duplicate or already purchased movies.
+### 🐳 Docker & Deployment
 
-View cart with movie details (title, genre, price, release year).
+- Fully containerized setup
+- Services included:
+  - FastAPI
+  - PostgreSQL
+  - Redis
+  - Celery
+  - MinIO
+- One-command startup
 
-Clear cart manually.
+---
 
-Moderators can view users’ carts for analysis.
+## 🧰 Tech Stack
 
-4. Orders
+| Category              | Technology              |
+|----------------------|------------------------|
+| Backend              | FastAPI, Pydantic      |
+| ORM                  | SQLAlchemy             |
+| Database             | PostgreSQL             |
+| Async Tasks          | Celery + Redis         |
+| Storage              | MinIO                  |
+| Authentication       | JWT                    |
+| Payments             | Stripe                 |
+| Containerization     | Docker, Docker Compose |
 
-Place orders for movies in cart.
+---
 
-Exclude unavailable or already purchased movies.
+## ⚙️ Installation
 
-View order history: date, movies, total amount, status (pending, paid, canceled).
+### 1. Clone the repository
 
-Cancel pending orders; refunds possible after payment.
-
-Email confirmation on successful payment.
-
-Admins can filter orders by users, dates, and status.
-
-5. Payments
-
-Stripe integration for payments.
-
-View payment history: date, amount, status (successful, canceled, refunded).
-
-Payment validation through Stripe webhooks.
-
-Admins can filter payments by users, dates, and status.
-
-Detailed payment items ensure accurate financial reporting.
-
-6. Docker & Docker Compose
-
-Containerized project for easy deployment.
-
-Services included: FastAPI, Redis, Celery, MinIO.
-
-Single command to launch all services.
-
-Tech Stack
-
-Backend: FastAPI, Pydantic, SQLAlchemy
-
-Database: PostgreSQL (or your preferred relational DB)
-
-Asynchronous Tasks: Celery + Redis
-
-Storage: MinIO for avatars and media
-
-Authentication: JWT (access + refresh tokens)
-
-Payments: Stripe
-
-Containerization: Docker, Docker Compose
-
-Installation
-
-Clone the repository:
-
+```bash
 git clone https://github.com/yourusername/online-cinema.git
 cd online-cinema
-
-Copy .env.example to .env and configure environment variables:
-
-cp .env.example .env
-
-Build and run Docker containers:
-
-docker-compose up --build
