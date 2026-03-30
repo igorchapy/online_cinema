@@ -8,29 +8,6 @@ The system includes authentication, role-based access control, shopping cart, or
 
 ## 🚀 Features
 
-### 🔐 online_cinema
-
-- **User Registration**
-  - Email-based registration with activation link (valid for 24 hours)
-  - Ability to resend activation link
-  - Unique email enforcement
-
-- **Login & Logout**
-  - JWT-based authentication (access + refresh tokens)
-  - Secure logout (refresh token invalidation)
-
-- **Password Management**
-  - Change password (requires old password)
-  - Password reset via email token
-  - Password complexity validation
-
-- **Roles & Permissions**
-  - `USER` – Basic access
-  - `MODERATOR` – Manage movies, view sales
-  - `ADMIN` – Manage users, roles, and activations
-
----
-
 ### 🎥 Movies
 
 - Browse catalog with:
