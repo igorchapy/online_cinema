@@ -34,8 +34,8 @@ WORKDIR /usr/src/fastapi
 # Copy the source code
 COPY ./src .
 
-# Copy commands
-COPY ./src/commands /commands
+
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 # Ensure Unix-style line endings for scripts
 RUN dos2unix /commands/*.sh
 
