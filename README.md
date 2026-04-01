@@ -121,10 +121,43 @@ The system includes authentication, role-based access control, shopping cart, or
 
 ---
 
-## ⚙️ Installation
+1️⃣ Make sure Docker and Docker Compose are installed
 
-### 1. Clone the repository
+Check versions:
 
-```bash
-git clone https://github.com/yourusername/online-cinema.git
+docker --version
+docker-compose --version
+
+If you don’t have them installed:
+
+Windows/Mac → Install Docker Desktop
+Linux → Install Docker Engine + Docker Compose
+2️⃣ Go to your project directory
 cd online-cinema
+3️⃣ Build Docker images
+
+If you have a docker-compose.yml that defines all services (FastAPI, PostgreSQL, Redis, Celery, MinIO, etc.):
+
+docker-compose build
+
+This will build all the project images.
+
+4️⃣ Run the containers
+docker-compose up
+To run in the background (detached mode):
+docker-compose up -d
+5️⃣ Check logs and container status
+Follow logs:
+docker-compose logs -f
+See running containers:
+docker ps
+6️⃣ Stop containers
+docker-compose down
+This stops and removes all containers. Data in volumes is preserved.
+⚡ Tips
+Make sure ports are mapped correctly in docker-compose.yml:
+ports:
+  - "8000:8000"  # FastAPI
+If FastAPI uses Uvicorn, make sure the command in docker-compose.yml is:
+command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+On Windows, sometimes volume permissions can cause permission denied errors—make sure file sharing is enabled for the project folder.
